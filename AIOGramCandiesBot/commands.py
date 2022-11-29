@@ -2,7 +2,7 @@
 
 from aiogram import types
 
-import view
+import view, model
 from bot import bot
 
 
@@ -14,9 +14,14 @@ async def finish(message: types.Message):
                         f'{message.from_user.first_name}, '
                         f'до свидания!')
 
-async def getNumber(message: types.Message):
-    number = message.text
-    if 0 < int(number) < 29:
-        print(number)
-    else:
-        await bot.send_message(message.from_user.id, 'Ах, ты грязный читер!')
+async def play(message: types.Message):
+    await view.info_message(message)
+    await model.set_firstTurn(message)
+    await model.game(message)
+
+# async def getNumber(message):
+#     number = message.text
+#     if 0 < int(number) < 29:
+#         print(number)
+#     else:
+#         await bot.send_message(message.from_user.id, 'Ах, ты грязный читер!')
